@@ -12,7 +12,7 @@ export class DynamicTableComponent implements OnInit {
     "nodeOne": "John Doe",
     "nodeTwo": "05/06/2020",
     "nodeThree": 777,
-    "nodeFour": [
+    "nodeFour1": [
       { "elementOne": "B Street" },
       { "elementTwo": "City" },
       { "elementThree": "Area - 591323" },
@@ -23,10 +23,26 @@ export class DynamicTableComponent implements OnInit {
         
         ]
       }
+    ] ,"nodeFour": [
+      { "elementOne": "B Street" },
+      { "elementTwo": "City" },
+      { "elementThree": "Area - 591323" },
+      {
+        "elementFour": [
+          { "elementFive": "06/07/2020" },
+          { "elementSix": 123 },
+          {"elementFournew": [
+            { "elementFive": "06/07/2020" },
+            { "elementSix": 123 }
+          
+          ]}
+        
+        ]
+      }
     ] 
   };
 
-  nestedArray = [];
+  // nestedArray = [];
  
   constructor() {
 
@@ -42,22 +58,5 @@ export class DynamicTableComponent implements OnInit {
     return typeof list;
   }
 
-  nestedTable(list) {
-
-    let hasActiveIndex = false;
- 
-    this.nestedArray.map((element)=>{
-      if (list.activeIndex == element.activeIndex) {
-        hasActiveIndex = true;
-        return;
-      }
-    });
-
-    if (!hasActiveIndex) {
-      this.nestedArray.push(list);
-    }
-   
-  
-  }
  
 }

@@ -10,31 +10,13 @@
         <!-- If data type is non-primitive -->
         <ng-template #objectFound>
 
-          <app-table (nestedArray)="nestedTable($event)" [tableData]='{dataList:jsonData[list],title:list,index:index}'>
+          <app-table (nestedArray)="nestedTable($event)" [tableData]='{dataList:jsonData[list],title:list}'>
           </app-table>
 
         </ng-template>
 
 
-        <!-- Nested table view will be render here by using recursive  -->
-        <div class="ml-4">
-          <ng-template #recursiveList let-jsonData>
-
-            <ng-container *ngFor="let item of jsonData ;">
-
-              <ng-container *ngIf="item.index==index">
-                <app-table (nestedArray)="nestedTable($event)"
-                  [tableData]='{dataList:item.nestedArray,title:item.title,index:item.index}'>
-                </app-table>
-              </ng-container>
-
-            </ng-container>
-
-          </ng-template>
-
-          <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: nestedArray }"></ng-container>
-        </div>
-        <!-- End of recursive data -->
+    
       </ng-container>
 
 

@@ -1,31 +1,40 @@
- <p *ngIf="tableData" class="bolder">{{tableData.title | label | titlecase}}:</p>
- <table class="table table-bordered" *ngIf="tableData">
-   <ng-container>
-     <thead>
-       <tr>
-         <ng-container *ngFor="let keyHeaderList of tableData.dataList">
-           <th>{{keyHeaderList| keys | label | titlecase}}</th>
-         </ng-container>
-       </tr>
-     </thead>
-     <tbody>
-       <tr>
-         <ng-container *ngFor="let keyHeaderList of tableData.dataList;let index=index;">
-           <td *ngIf="checkDataType(keyHeaderList[keyHeaderList|keys])!='object';else objectFound">
-             {{keyHeaderList[keyHeaderList|keys]}}
-           </td>
-           <ng-template #objectFound>
-             <td>
-               <button
-                 (click)="nestedData({index:tableData.index,activeIndex:index,title:keyHeaderList ,nestedArray:keyHeaderList})"
-                 type="button" class="btn btn-primary"> View More
-               </button>
-             </td>
-           </ng-template>
+<ng-template #recursiveList let-tableData>
 
-         </ng-container>
-       </tr>
+  <p class="bolder">{{tableData.title | label | titlecase}}:</p>
 
-     </tbody>
-   </ng-container>
- </table>
+  <table class="table table-bordered">
+    <ng-container>
+      <thead>
+        <tr>
+          <ng-container *ngFor="let keyHeaderList of tableData.dataList">
+            <th>{{keyHeaderList| keys | label | titlecase}}</th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <ng-container *ngFor="let keyHeaderList of tableData.dataList;let index=index;">
+            <td *ngIf="checkDataType(keyHeaderList[keyHeaderList|keys])!='object';else objectFound">
+              {{keyHeaderList[keyHeaderList|keys]}}
+            </td>
+            <ng-template #objectFound>
+              <td>
+                <button
+                  (click)="nestedData({activeIndex:index,title:keyHeaderList ,childArray:keyHeaderList})"
+                  type="button" class="btn btn-primary"> View More
+                </button>
+              </td>
+            </ng-template>
+
+          </ng-container>
+        </tr>
+
+      </tbody>
+    </ng-container>
+  </table>
+</ng-template>
+
+<ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: tableData }"></ng-container>
+<div *ngFor="let list of childArray">
+  <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
+</div>

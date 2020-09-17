@@ -7,13 +7,12 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 })
 export class TableComponent implements OnInit {
   @Input() tableData: any;
-
-  @Output() nestedArray: EventEmitter<any> = new EventEmitter();
+  childArray = [];
 
   constructor() { }
 
   ngOnInit(): void {
-    // console.log("tableData1", this.tableData);
+    console.log("tableData1", this.tableData);
   }
   checkDataType(list) {
     return typeof list;
@@ -25,16 +24,33 @@ export class TableComponent implements OnInit {
     }
     return label.replace(/([a-z])([A-Z])/g, '$1 $2');
   }
+
   nestedData(data) {
 
-    let dynamicKey = Object.keys(data.nestedArray)[0];
-    data.nestedArray = data.nestedArray[dynamicKey];
+    let dynamicKey = Object.keys(data.childArray)[0];
+    data.dataList = data.childArray[dynamicKey];
     data.title = dynamicKey;
-    data.activeIndex = data.index + "" + data.activeIndex;
+    data.activeIndex =data.activeIndex;
 
-    this.nestedArray.emit(data);
+    this.hasChildExist(data);
 
   }
 
+  hasChildExist(list) {
+
+    let hasActiveIndex = false;
+
+    this.childArray.map((element) => {
+      if (list.activeIndex == element.activeIndex) {
+        hasActiveIndex = true;
+        return;
+      }
+    });
+
+    if (!hasActiveIndex) {
+      this.childArray.push(list);
+    }
+
+  }
 
 }
