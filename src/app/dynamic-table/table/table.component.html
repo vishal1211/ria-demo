@@ -1,0 +1,31 @@
+ <p *ngIf="tableData" class="bolder">{{tableData.title | label | titlecase}}:</p>
+ <table class="table table-bordered" *ngIf="tableData">
+   <ng-container>
+     <thead>
+       <tr>
+         <ng-container *ngFor="let keyHeaderList of tableData.dataList">
+           <th>{{keyHeaderList| keys | label | titlecase}}</th>
+         </ng-container>
+       </tr>
+     </thead>
+     <tbody>
+       <tr>
+         <ng-container *ngFor="let keyHeaderList of tableData.dataList;let index=index;">
+           <td *ngIf="checkDataType(keyHeaderList[keyHeaderList|keys])!='object';else objectFound">
+             {{keyHeaderList[keyHeaderList|keys]}}
+           </td>
+           <ng-template #objectFound>
+             <td>
+               <button
+                 (click)="nestedData({index:tableData.index,activeIndex:index,title:keyHeaderList ,nestedArray:keyHeaderList})"
+                 type="button" class="btn btn-primary"> View More
+               </button>
+             </td>
+           </ng-template>
+
+         </ng-container>
+       </tr>
+
+     </tbody>
+   </ng-container>
+ </table>
