@@ -10,7 +10,7 @@
         <!-- If data type is non-primitive -->
         <ng-template #objectFound>
 
-          <app-table (nestedArray)="nestedTable($event)" [tableData]='{dataList:jsonData[list],title:list}'>
+          <app-table   [tableData]='{dataList:jsonData[list],title:list}'>
           </app-table>
 
         </ng-template>
