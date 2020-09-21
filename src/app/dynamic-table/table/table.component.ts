@@ -35,8 +35,8 @@ export class TableComponent implements OnInit {
   getDateFormat(inputDate) {
 
     let date = new Date(inputDate);
-    // our json format  mm/dd/yyyy
-    //date picker need format in   yyyy/mm/dd
+    // we get date in this format => mm/dd/yyyy
+    //date picker required date format in =>  yyyy/mm/dd
 
     return date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, "0") +
       '-' + date.getDate().toString().padStart(2, "0");
