@@ -12,29 +12,54 @@ export class TableComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("tableData1", this.tableData);
+
+// console.log(typeof "vishal@nikita.com")
   }
+
+
+  checkInputType(inputValue) {
+
+    // To find date format we will considering two parameters 
+    // 1. we get date in string format so here we check given input should not be number.
+    // 2. second we will converting given input into milliseconds if it is > 0 then it is date 
+
+
+    if (typeof inputValue != 'number' && Date.parse(inputValue) > 0) {
+      return 'date';
+    } else {
+      return typeof inputValue
+    }
+
+
+  }
+  getDateFormat(inputDate) {
+
+    let date = new Date(inputDate);
+    // our json format  mm/dd/yyyy
+    //date picker need format in   yyyy/mm/dd
+
+    return date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, "0") +
+      '-' + date.getDate().toString().padStart(2, "0");
+  }
+
   checkDataType(list) {
     return typeof list;
   }
+
   getLabel(label) {
-    console.log(label)
+    // console.log(label)
     if (typeof label !== 'string') {
       label = "" + label + "";
     }
     return label.replace(/([a-z])([A-Z])/g, '$1 $2');
   }
 
-  nestedData(data) {
+  nestedData(index, data) {
 
-    let dynamicKey = Object.keys(data.childArray)[0];
-    data.dataList = data.childArray[dynamicKey];
-    data.title = dynamicKey;
-    data.activeIndex =data.activeIndex;
-
-    this.hasChildExist(data);
+    this.hasChildExist({ activeIndex: index, title: Object.keys(data)[0], dataList: data[Object.keys(data)[0]] });
 
   }
+
 
   hasChildExist(list) {
 

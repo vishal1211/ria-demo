@@ -32,7 +32,7 @@ export class DynamicTableComponent implements OnInit {
           { "elementFive": "06/07/2020" },
           { "elementSix": 123 },
           {"elementFournew": [
-            { "elementFive": "06/07/2020" },
+            { "elementFive": "10/15/2020" },
             { "elementSix": 123 }
           
           ]}

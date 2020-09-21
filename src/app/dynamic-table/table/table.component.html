@@ -14,14 +14,24 @@
       <tbody>
         <tr>
           <ng-container *ngFor="let keyHeaderList of tableData.dataList;let index=index;">
+         
             <td *ngIf="checkDataType(keyHeaderList[keyHeaderList|keys])!='object';else objectFound">
-              {{keyHeaderList[keyHeaderList|keys]}}
+           
+              <ng-container [ngSwitch]="checkInputType(keyHeaderList[keyHeaderList|keys])">
+                <input class="form-control" type="input" [value]="keyHeaderList[keyHeaderList|keys]" *ngSwitchCase="'string'">
+                <input class="form-control" type="number" [value]="keyHeaderList[keyHeaderList|keys]" *ngSwitchCase="'number'">
+                <input class="form-control" type="date" [value]="getDateFormat(keyHeaderList[keyHeaderList|keys])" *ngSwitchCase="'date'">
+             
+                <input class="form-control" type="input" [value]="keyHeaderList[keyHeaderList|keys]" *ngSwitchDefault>
+
+              </ng-container>
+             
             </td>
             <ng-template #objectFound>
               <td>
-                <button
-                  (click)="nestedData({activeIndex:index,title:keyHeaderList ,childArray:keyHeaderList})"
+                <button (click)="nestedData(index,keyHeaderList)"
                   type="button" class="btn btn-primary"> View More
+                 
                 </button>
               </td>
             </ng-template>

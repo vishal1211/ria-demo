@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row mt-4">
-    <div class="col-lg-8" *ngIf="jsonData">
+    <div class="col-lg-10" *ngIf="jsonData">
 
       <ng-container *ngFor="let list of jsonData | keys;let index=index;">
         <p *ngIf="checkDataType(jsonData[list])!=='object';else objectFound">{{list | label | titlecase}} :
